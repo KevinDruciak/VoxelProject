@@ -1,0 +1,7 @@
+fullscreen              1
+windowWidth             1280
+windowHeight            720
+fieldOfView             70.0
+renderDistance          50.0
+verticalSensitivity     1.0
+horizontalSensitivity   1.0
