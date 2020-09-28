@@ -1,33 +1,23 @@
+#include "Engine/Application.h"
+
+#include <fstream>
 #include <iostream>
-#include <iomanip>
-#include <string>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
-#include "Utils/config.h"
-#include "Utils/window.h"
-#include "Engine/engine.h"
-#include "Engine/camera.h"
-#include "Inputs/input_handler.h"
+#include "Config.h"
 
+#ifdef __WIN32
+extern "C" {
+// Enable dedicated graphics
+__declspec(dllexport) bool NvOptimusEnablement = true;
+__declspec(dllexport) bool AmdPowerXpressRequestHighPerformance = true;
+}
+#endif // __WIN32
 
-#define ERROR -1
-#define SUCCESS 0
-
- 
-int main() {
-    Config config;
+int main()
+{
+	Config config;
 	config.loadConfigFromFile("C:/Users/bakad/Desktop/VoxelProject/VoxelProject/VoxelProject/config.txt");
-    
-    Camera* camera = new Camera();
-    InputHandler* inputHandler = new InputHandler(*camera);
-    Window* window = new Window(*inputHandler);
-    
-    Engine* engine = new Engine(*camera, *inputHandler, *window);
-    if (engine->start()) {
-        engine->run();
-    }
-    
-    glfwTerminate();
-    return SUCCESS;
+	config.printConfig();
+	Application app(config);
+	app.run();
 }
